@@ -272,9 +272,9 @@ details p { margin: 8px 0; }
         <button id="resetBtn" type="button" disabled>Kembalikan posisi</button>
       </div>
       <label class="field" for="nameInput">Nama (maksimal 2 baris)
-        <textarea id="nameInput" rows="2" maxlength="60" placeholder="Tulis nama di sini">Nama Lengkap Anda</textarea>
+        <textarea id="nameInput" rows="2" maxlength="60" placeholder="Tulis nama di sini"></textarea>
       </label>
-      <div class="counter" id="counter">17 / 60</div>
+      <div class="counter" id="counter">0 / 60</div>
     </div>
   </section>
 
@@ -401,9 +401,13 @@ details p { margin: 8px 0; }
     return lines;
   }
 
-  function drawName() {
+  // Saat nama masih kosong, pratinjau di layar menampilkan contoh tipis.
+  // Contoh ini tidak ikut masuk ke JPG hasil unduhan.
+  function drawName(forExport) {
     var text = nameInput.value;
-    if (!text.trim()) return;
+    var ghost = !text.trim();
+    if (ghost && forExport === true) return;
+    if (ghost) text = "Nama Anda";
     var size = TEXT.size, lines = wrap(text, size);
     while (lines.length > TEXT.maxLines && size > TEXT.minSize) {
       size -= 1;
@@ -412,14 +416,16 @@ details p { margin: 8px 0; }
     lines = lines.slice(0, TEXT.maxLines);
     var lh = size * TEXT.lineHeight;
     ctx.fillStyle = TEXT.color;
+    ctx.globalAlpha = ghost ? 0.35 : 1;
     ctx.textBaseline = "top";
     ctx.textAlign = "left";
     lines.forEach(function (l, i) {
       ctx.fillText(l, TEXT.x, TEXT.y + i * lh + (lh - size) / 2);
     });
+    ctx.globalAlpha = 1;
   }
 
-  function render() {
+  function render(forExport) {
     // 1. Latar warna solid
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, SIZE, SIZE);
@@ -461,7 +467,7 @@ details p { margin: 8px 0; }
     }
     ctx.restore();
 
-    drawName();
+    drawName(forExport);
   }
 
   function setZoom(z) {
@@ -591,8 +597,9 @@ details p { margin: 8px 0; }
   }
   function openPreview() {
     if (!photo) { toast("Pilih gambar dulu."); return; }
-    render();
+    render(true);
     canvas.toBlob(function (blob) {
+      render();
       if (!blob) { toast("Gagal membuat JPG. Coba lagi."); return; }
       if (lastUrl) URL.revokeObjectURL(lastUrl);
       lastBlob = blob;

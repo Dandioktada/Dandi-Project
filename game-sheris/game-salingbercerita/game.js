@@ -36,6 +36,8 @@
   let rollTerakhir = -1;
   let timerSambung = null;
   let sengajaKeluar = false;
+  let pesanTerakhir = 0;      // waktu terakhir menerima data dari lawan
+  const BATAS_SENYAP = 12000; // lebih dari ini tanpa kabar = dianggap terputus
 
   const $ = (id) => document.getElementById(id);
 
@@ -332,6 +334,14 @@
 
   function terimaDariTamu(c, d) {
     if (!d || typeof d !== "object") return;
+    if (c === conn || d.t === "halo") pesanTerakhir = Date.now();
+    if (d.t === "ping") {
+      if (c === conn) {
+        try { c.send({ t: "pong" }); } catch (e) {}
+        if (!terhubung) aturTerhubung(true);
+      }
+      return;
+    }
     if (d.t === "halo") {
       if (conn && conn !== c) { try { conn.close(); } catch (e) {} }
       conn = c;
@@ -388,6 +398,8 @@
   function sambungKeHost() {
     if (!peer || peer.destroyed || sengajaKeluar) return;
     clearTimeout(timerSambung);
+    timerSambung = null;
+    if (conn) { const lama = conn; conn = null; try { lama.close(); } catch (e) {} }
     const c = peer.connect(AWALAN_ID + kode, { reliable: true });
     conn = c;
     c.on("open", () => {
@@ -396,6 +408,8 @@
     });
     c.on("data", (d) => {
       if (!d || typeof d !== "object") return;
+      pesanTerakhir = Date.now();
+      if (d.t === "pong") { if (!terhubung && state) aturTerhubung(true); return; }
       if (d.t === "state") {
         if (!terhubung) aturTerhubung(true);
         terhubung = true;
@@ -545,6 +559,43 @@
       btn.hidden = true;
     }
   }
+
+  // ---------- Penjaga koneksi ----------
+  // HP sering memutus koneksi saat browser ditinggal ke WhatsApp.
+  // Detak ini memeriksa koneksi secara berkala dan menyambung ulang otomatis.
+  setInterval(() => {
+    if (!peer || sengajaKeluar || !state) return;
+    if (peer.disconnected && !peer.destroyed) { try { peer.reconnect(); } catch (e) {} }
+    const senyap = Date.now() - pesanTerakhir > BATAS_SENYAP;
+    if (peran === "tamu") {
+      if (conn && conn.open) {
+        try { conn.send({ t: "ping" }); } catch (e) {}
+        if (senyap) { aturTerhubung(false); sambungKeHost(); }
+      } else if (!timerSambung || senyap) {
+        aturTerhubung(false);
+        sambungKeHost();
+      }
+    } else if (peran === "host" && terhubung && senyap) {
+      aturTerhubung(false);
+    }
+  }, 4000);
+
+  function saatKembali() {
+    if (document.visibilityState !== "visible" || !peer || sengajaKeluar) return;
+    if (peer.destroyed) {
+      if (peran === "host" && state) mulaiHost(true);
+      else if (peran === "tamu") mulaiTamu();
+      return;
+    }
+    if (peer.disconnected) { try { peer.reconnect(); } catch (e) {} }
+    if (peran === "tamu" && state) {
+      if (conn && conn.open) { try { conn.send({ t: "ping" }); } catch (e) {} }
+      else sambungKeHost();
+    }
+  }
+  document.addEventListener("visibilitychange", saatKembali);
+  window.addEventListener("pageshow", saatKembali);
+  window.addEventListener("online", saatKembali);
 
   // ---------- Pasang tombol ----------
   $("btn-buat").addEventListener("click", buatRuangan);

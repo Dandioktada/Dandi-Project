@@ -18,4 +18,8 @@ game-sheris/
 
 ## Daftar Game
 
-Belum ada game. Daftar ini akan diperbarui setiap kali game baru ditambahkan.
+| Folder | Nama Game | Keterangan |
+|---|---|---|
+| `game-salingbercerita/` | Saling Bercerita | Game kartu obrolan untuk dua orang secara online. Dadu dua warna menentukan kartu Cokelat (masa depan, rencana, mimpi) atau Hijau (komitmen, kejujuran, kasih sayang). |
+
+Daftar ini diperbarui setiap kali game baru ditambahkan.

@@ -1,0 +1,61 @@
+// Isi kartu Saling Bercerita.
+// Silakan ubah, tambah, atau kurangi kalimat di bawah ini.
+// Setiap kalimat ditulis di antara tanda kutip dan diakhiri koma.
+
+const KARTU_COKLAT = [
+  // Tema: masa depan, rencana, dan mimpi
+  "Lima tahun lagi, kamu membayangkan dirimu tinggal di mana dan sedang sibuk apa?",
+  "Mimpi apa yang dari kecil belum pernah kamu ceritakan ke siapa pun?",
+  "Kalau uang dan waktu bukan masalah, apa yang paling ingin kamu kerjakan?",
+  "Rumah impianmu seperti apa? Ceritakan sampai ke ruangan favoritmu.",
+  "Satu hal apa yang ingin kamu pelajari tahun depan? Kenapa itu?",
+  "Tempat mana yang ingin kita kunjungi berdua suatu hari nanti?",
+  "Menurutmu, hidup yang sudah \"cukup\" itu seperti apa?",
+  "Rencana kecil apa yang ingin kamu wujudkan bulan ini?",
+  "Kalau boleh memilih pekerjaan apa saja, kamu mau jadi apa?",
+  "Apa yang ingin kamu capai sebelum umur 40?",
+  "Kebiasaan baik apa yang ingin kamu mulai dari sekarang?",
+  "Bagaimana kamu membayangkan hari Minggu kita sepuluh tahun lagi?",
+  "Ketakutan apa yang paling sering muncul saat kamu memikirkan masa depan?",
+  "Kalau suatu hari punya anak, nilai apa yang paling ingin kamu tanamkan?",
+  "Mimpi apa yang dulu sempat kamu lepaskan? Apakah kamu masih memikirkannya?",
+  "Seperti apa dirimu di masa depan yang paling ingin kamu temui?",
+  "Usaha atau proyek apa yang ingin kamu mulai kalau ada kesempatan?",
+  "Bagaimana caramu ingin mengatur keuangan bersama nanti?",
+  "Kota atau negara mana yang pernah kamu bayangkan untuk ditinggali?",
+  "Hal apa tentang dirimu yang ingin selalu diingat orang?",
+  "Tradisi kecil apa yang ingin kita buat bersama?",
+  "Kalau bisa mengirim pesan untuk dirimu lima tahun lagi, apa isinya?",
+  "Target apa yang sedang kamu kejar sekarang, dan bagaimana aku bisa membantu?",
+  "Bagaimana kamu membayangkan masa tua yang tenang?",
+  "Hal apa yang paling membuatmu semangat saat memikirkan tahun depan?",
+];
+
+const KARTU_HIJAU = [
+  // Tema: komitmen, kejujuran, dan kasih sayang
+  "Kapan terakhir kali kamu merasa benar-benar disayangi olehku?",
+  "Apa arti setia menurutmu? Jelaskan dengan bahasamu sendiri.",
+  "Adakah hal yang selama ini sulit kamu sampaikan ke aku? Ceritakan pelan-pelan saja.",
+  "Hal kecil apa dariku yang diam-diam membuatmu bahagia?",
+  "Dengan cara apa kamu paling suka ditunjukkan rasa sayang?",
+  "Dalam situasi apa kamu paling sulit untuk jujur? Kenapa?",
+  "Janji apa yang ingin kamu pegang dalam hubungan ini?",
+  "Apa yang kamu butuhkan dariku saat sedang sedih atau lelah?",
+  "Pernahkah kamu merasa ragu? Apa yang membuatmu tetap bertahan?",
+  "Sifatku yang mana yang awalnya sulit kamu terima, tapi sekarang kamu pahami?",
+  "Menurutmu, bagaimana cara kita menyelesaikan masalah dengan lebih baik?",
+  "Kebohongan kecil apa yang pernah kamu ucapkan dan ingin kamu akui sekarang?",
+  "Kapan pertama kali kamu yakin dengan perasaanmu padaku?",
+  "Apa yang membuatmu merasa aman dalam hubungan ini?",
+  "Hal apa yang ingin kamu mintakan maaf, meski sudah lama berlalu?",
+  "Kata-kata apa yang ingin lebih sering kamu dengar dariku?",
+  "Bagaimana caranya kita tetap dekat saat sama-sama sibuk?",
+  "Batasan apa yang penting buatmu dan ingin aku hormati?",
+  "Momen bersamaku yang mana yang paling ingin kamu ulang?",
+  "Menurutmu, komitmen itu dibuktikan lewat apa?",
+  "Apa yang kamu lakukan saat cemburu, dan apa yang sebenarnya kamu rasakan?",
+  "Hal apa dariku yang membuatmu bangga?",
+  "Kalau kamu sedang marah padaku, apa yang sebaiknya aku lakukan?",
+  "Satu hal apa yang ingin kamu ubah dari caraku menyayangimu?",
+  "Sampaikan satu hal jujur tentang perasaanmu hari ini.",
+];

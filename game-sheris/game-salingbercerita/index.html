@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saling Bercerita</title>
+<meta name="theme-color" content="#f6efe4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="app">
+
+  <!-- ====== LAYAR AWAL ====== -->
+  <section id="layar-awal" class="layar aktif">
+    <header class="judul">
+      <div class="logo-dadu" aria-hidden="true"><span class="c"></span><span class="h"></span></div>
+      <h1>Saling Bercerita</h1>
+      <p class="sub">Putar dadu, ambil kartu, lalu ngobrol berdua.</p>
+    </header>
+
+    <div class="panel">
+      <label for="input-nama">Nama kamu</label>
+      <input id="input-nama" type="text" maxlength="20" placeholder="Tulis namamu" autocomplete="off">
+
+      <button id="btn-buat" class="btn utama">Buat Ruangan</button>
+
+      <div class="pemisah"><span>atau gabung ke ruangan</span></div>
+
+      <label for="input-kode">Kode ruangan</label>
+      <input id="input-kode" type="text" maxlength="5" placeholder="Contoh: K7M2Q" autocomplete="off" autocapitalize="characters">
+      <button id="btn-gabung" class="btn kedua">Gabung</button>
+
+      <button id="btn-lanjut" class="btn tipis" hidden></button>
+
+      <p id="pesan-awal" class="pesan" role="status"></p>
+    </div>
+
+    <p class="catatan">Game ini hanya menampilkan permainan. Untuk ngobrol, gunakan telepon WhatsApp seperti biasa.</p>
+  </section>
+
+  <!-- ====== LAYAR MENUNGGU ====== -->
+  <section id="layar-tunggu" class="layar">
+    <header class="judul kecil">
+      <h1>Ruangan siap</h1>
+      <p class="sub">Kirim kode atau tautan ini ke pasanganmu.</p>
+    </header>
+
+    <div class="panel tengah">
+      <p class="label-kode">Kode ruangan</p>
+      <p id="tampil-kode" class="kode">-----</p>
+
+      <a id="btn-wa" class="btn wa" target="_blank" rel="noopener">Kirim lewat WhatsApp</a>
+      <button id="btn-salin" class="btn kedua">Salin tautan</button>
+
+      <div class="menunggu">
+        <span class="titik"></span><span class="titik"></span><span class="titik"></span>
+        <p>Menunggu pasanganmu bergabung</p>
+      </div>
+      <p id="pesan-tunggu" class="pesan" role="status"></p>
+    </div>
+
+    <button id="btn-batal" class="btn tipis">Batalkan</button>
+  </section>
+
+  <!-- ====== LAYAR PERMAINAN ====== -->
+  <section id="layar-main" class="layar">
+    <div class="bar-atas">
+      <div class="pemain" id="pemain-0"><span class="nama">-</span></div>
+      <div id="status-koneksi" class="koneksi" title="Status koneksi"><span></span></div>
+      <div class="pemain" id="pemain-1"><span class="nama">-</span></div>
+    </div>
+
+    <p id="info-giliran" class="giliran">Memuat permainan</p>
+
+    <div class="arena">
+      <div class="dadu-wadah">
+        <div id="dadu" class="dadu">
+          <div class="sisi depan  coklat"><i></i></div>
+          <div class="sisi belakang hijau"><i></i></div>
+          <div class="sisi kanan  hijau"><i></i></div>
+          <div class="sisi kiri   coklat"><i></i></div>
+          <div class="sisi atas   coklat"><i></i></div>
+          <div class="sisi bawah  hijau"><i></i></div>
+        </div>
+        <div class="bayangan"></div>
+      </div>
+
+      <div id="kartu" class="kartu kosong" aria-live="polite">
+        <div class="kartu-dalam">
+          <p class="kartu-tema" id="kartu-tema">Belum ada kartu</p>
+          <p class="kartu-teks" id="kartu-teks">Putar dadu untuk mengambil kartu pertama.</p>
+          <p class="kartu-no" id="kartu-no"></p>
+        </div>
+      </div>
+    </div>
+
+    <button id="btn-putar" class="btn utama besar" disabled>Putar Dadu</button>
+
+    <div class="sisa">
+      <div class="sisa-item coklat"><span class="bulat"></span>Masa depan <b id="sisa-coklat">25</b></div>
+      <div class="sisa-item hijau"><span class="bulat"></span>Hati <b id="sisa-hijau">25</b></div>
+    </div>
+
+    <details class="riwayat">
+      <summary>Kartu yang sudah keluar (<span id="jumlah-riwayat">0</span>)</summary>
+      <ol id="daftar-riwayat"></ol>
+    </details>
+
+    <div class="aksi-bawah">
+      <button id="btn-ulang" class="btn tipis">Mulai ulang kartu</button>
+      <button id="btn-keluar" class="btn tipis">Keluar</button>
+    </div>
+  </section>
+
+  <!-- ====== LAYAR SELESAI ====== -->
+  <section id="layar-selesai" class="layar">
+    <header class="judul">
+      <div class="logo-dadu" aria-hidden="true"><span class="c"></span><span class="h"></span></div>
+      <h1>Semua kartu sudah dibuka</h1>
+      <p class="sub">Terima kasih sudah saling bercerita. Semoga obrolan tadi membuat kalian makin dekat.</p>
+    </header>
+    <button id="btn-main-lagi" class="btn utama">Main lagi</button>
+    <button id="btn-keluar-2" class="btn tipis">Keluar</button>
+  </section>
+
+</main>
+
+<div id="toast" class="toast" role="status"></div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="kartu.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
